@@ -8,53 +8,110 @@ import {
     RiMenu5Fill,
     RiProfileLine
 } from 'react-icons/ri'
+import { MdAndroid } from "react-icons/md";
 import { Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay } from '@chakra-ui/modal'
 import { useDisclosure } from '@chakra-ui/hooks'
-import { VStack } from '@chakra-ui/layout'
+import { HStack, VStack } from '@chakra-ui/layout'
 import { Link } from 'react-router-dom'
 
 const Header = () => {
+    const isAuthenticated = true;
 
-    const LinkButton = ({url="/", title="Home", onClose})=>(
+    const LinkButton = ({ url = "/", title = "Home", onClose }) => (
         <Link onClick={onClose} to={url}>
             <Button variant={'ghost'}>{title}</Button>
         </Link>
     )
-    const {isOpen,onOpen,onClose} = useDisclosure()
-  return (
-   <>
-    <ColorModeSwitcher />
-    <Button 
-    onClick={onOpen}
-    colorScheme='purple'
-    width={"12"}
-    height={"12"}
-    rounded={"full"}
-    position={'fixed'}
-    zIndex={'overlay'}
-    top={"5px"}
-    left={"5px"}
-    >
-        <RiMenu5Fill />
-    </Button>
-    <Drawer 
-    placement='left'
-    onClose={onClose} 
-    isOpen={isOpen}>
-        <DrawerOverlay backdropFilter={'blur(5px'} />
-        <DrawerContent >
-            <DrawerHeader borderBottomWidth={"1px"} children={'PROJECT-K'}/>
-            <DrawerBody>
-                <VStack spacing={'4'} alignItems={'flex-start'}>
-                    <LinkButton onClose={onClose} url={'/'} title='Home' />
-                    <LinkButton onClose={onClose} url={'/login'} title='Login' />
-                    <LinkButton onClose={onClose} url={'/register'} title='Register' />
-                </VStack>
-            </DrawerBody>
-        </DrawerContent>
-    </Drawer>
-   </>
-  )
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const user={
+        name:"sushanta Bhowmick",
+        role:'admin'
+    }
+
+    return (
+        <>
+            <ColorModeSwitcher />
+            <Button
+                onClick={onOpen}
+                colorScheme='purple'
+                width={"12"}
+                height={"12"}
+                rounded={"full"}
+                position={'fixed'}
+                zIndex={'overlay'}
+                top={"5px"}
+                left={"5px"}
+            >
+                <RiMenu5Fill />
+            </Button>
+            <Drawer
+                placement='left'
+                onClose={onClose}
+                isOpen={isOpen}>
+                <DrawerOverlay backdropFilter={'blur(5px'} />
+                <DrawerContent >
+                    <DrawerHeader borderBottomWidth={"1px"} children={'PROJECT-K'} />
+                    <DrawerBody>
+                        <VStack spacing={'4'} alignItems={'flex-start'}>
+                            <LinkButton onClose={onClose} url={'/'} title='Home' />
+                            <LinkButton onClose={onClose} url={'/products'} title='Products' />
+                            <LinkButton onClose={onClose} url={'/cart'} title='Cart' />
+                            <LinkButton onClose={onClose} url={'/Orders'} title='Orders' />
+                            <HStack 
+                            justifyContent={'space-evently'}
+                            position={'absolute'}
+                            bottom={'2rem'}
+                            right={'2rem'}
+                            width={"80%"}
+                            >
+                                {
+                                    isAuthenticated?(
+                                        <>
+                                        <VStack>
+                                            <HStack>
+                                            <Link to={'/profile'} onClick={onClose}>
+                                    <Button colorScheme='yellow' variant={'ghost'}>
+                                        <RiProfileLine />
+                                        Profile</Button>
+                                    </Link>
+                                    <Button colorScheme='yellow' variant={'ghost'}>
+                                        <RiLogoutBoxLine />
+                                        Logout</Button>
+                                            </HStack>
+                                            {
+                                                user && user.role==='admin'?
+                                                <Link to={'/profile'} onClick={onClose}>
+                                    <Button colorScheme='purple' width={'full'} variant={'ghost'}>
+                                        <RiDashboardFill />
+                                        Dashboard</Button>
+                                    </Link>:""
+                                            }
+                                        </VStack>
+                                        </>
+                                    ):(<>
+                                    <Link to={'/login'} onClick={onClose}>
+                                    <Button colorScheme='yellow'>
+                                        <RiLoginBoxLine />
+                                        Login</Button>
+                                    </Link>
+                                    <p>OR</p>
+                                    <Link to={'register'} onClick={onClose}>
+                                    <Button colorScheme='yellow'>
+                                        <MdAndroid />
+                                        Sign Up</Button>
+                                    </Link>
+                                    </>)
+                                }
+                            </HStack>
+
+                        </VStack>
+
+                    </DrawerBody>
+                </DrawerContent>
+            </Drawer>
+        </>
+    )
 }
 
 export default Header
