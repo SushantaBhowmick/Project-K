@@ -2,11 +2,13 @@ const catchAsyncError = require('../middlewares/catchAsyncError');
 const User = require('../models/userModel');
 const ErrorHandler = require('../utils/errHandler');
 const sendToken = require('../utils/sendToken');
+const cloudinary = require('cloudinary');
 
 exports.register = catchAsyncError(async (req, res, next) => {
     const { name, email, password } = req.body;
 
     //cloudinary add here
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar)
 
     if (!name || !email || !password)
         return next(new ErrorHandler("Please enter all fields", 400));
@@ -17,9 +19,12 @@ exports.register = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler("User Already Exits", 400));
 
     user = await User.create({
-        name, email, password, avatar: {
-            public_id: "tempId",
-            url: "tempurl",
+        name,
+        email, 
+        password, 
+        avatar: {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url,
         }
     })
 
