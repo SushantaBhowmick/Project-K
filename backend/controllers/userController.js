@@ -8,7 +8,11 @@ exports.register = catchAsyncError(async (req, res, next) => {
     const { name, email, password } = req.body;
 
     //cloudinary add here
-    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar)
+    // const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    //     folder: "avatars",
+    //     width: 150,
+    //     crop: "scale",
+    // })
 
     if (!name || !email || !password)
         return next(new ErrorHandler("Please enter all fields", 400));
@@ -23,8 +27,8 @@ exports.register = catchAsyncError(async (req, res, next) => {
         email, 
         password, 
         avatar: {
-            public_id: myCloud.public_id,
-            url: myCloud.secure_url,
+            public_id: "myCloud.public_id",
+            url: "myCloud.secure_url",
         }
     })
 

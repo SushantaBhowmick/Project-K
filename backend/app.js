@@ -1,6 +1,7 @@
 const express = require('express');
 const {config} = require('dotenv');
 const user = require('./routes/userRoutes');
+const product = require('./routes/productRoutes');
 const { ErrorMiddleware } = require('./middlewares/error');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -27,6 +28,7 @@ app.use(
 
 //import all routes
 app.use('/api/v1',user);
+app.use('/api/v1',product);
 
 
 app.use(ErrorMiddleware)
