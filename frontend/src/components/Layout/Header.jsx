@@ -19,7 +19,7 @@ const Header = () => {
 
     const LinkButton = ({ url = "/", title = "Home", onClose }) => (
         <Link onClick={onClose} to={url}>
-            <Button variant={'ghost'}>{title}</Button>
+            <Button  variant={'ghost'}>{title}</Button>
         </Link>
     )
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -57,7 +57,7 @@ const Header = () => {
                             <LinkButton onClose={onClose} url={'/'} title='Home' />
                             <LinkButton onClose={onClose} url={'/products'} title='Products' />
                             <LinkButton onClose={onClose} url={'/cart'} title='Cart' />
-                            <LinkButton onClose={onClose} url={'/Orders'} title='Orders' />
+                            <LinkButton onClose={onClose} url={'/orders'} title='Orders' />
                             <HStack 
                             justifyContent={'space-evently'}
                             position={'absolute'}
