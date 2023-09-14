@@ -1,0 +1,59 @@
+.banner {
+    background-image: url("../../assets/bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 202vmin 100vmin;
+    height: 100vmin;
+    /* width: 100vw; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hrs{
+    color: black;
+    height: 1px;
+    width: 5px;
+}
+
+.banner>a {
+    margin-bottom: 5vmax;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid white;
+    border-radius: 0;
+    padding: 1vmax;
+    transition: all 0.5s;
+    display: flex;
+    justify-content: center;
+    width: 9vmax;
+    font: 500 1vmax "Roboto";
+    text-align: center;
+    animation: buttonAni 1s infinite ease-in-out alternate;
+}
+
+@keyframes buttonAni {
+    to {
+        transform: translateY(-7px);
+    }
+
+}
+
+.banner>a:hover {
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+}
+
+/* .banner>button{
+    text-align: center;
+} */
+
+@media screen and (max-width:600px) {
+    .banner {
+        background-image: url("../../assets/bg.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100vmin 100vmin;
+        height: 100vmin;
+    }
+}

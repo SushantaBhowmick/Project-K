@@ -13,20 +13,23 @@ import { Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay } from '
 import { useDisclosure } from '@chakra-ui/hooks'
 import { HStack, VStack } from '@chakra-ui/layout'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { LogoutUser } from '../../redux/actions/userAction';
 
-const Header = () => {
-    const isAuthenticated = true;
+const Header = ({ isAuthenticated = false, user }) => {
 
     const LinkButton = ({ url = "/", title = "Home", onClose }) => (
         <Link onClick={onClose} to={url}>
-            <Button  variant={'ghost'}>{title}</Button>
+            <Button variant={'ghost'}>{title}</Button>
         </Link>
     )
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const user={
-        name:"sushanta Bhowmick",
-        role:'admin'
+    const dispatch = useDispatch();
+
+
+    const logoutHandler = ()=>{
+        dispatch(LogoutUser())
     }
 
     return (
@@ -35,8 +38,8 @@ const Header = () => {
             <Button
                 onClick={onOpen}
                 colorScheme='purple'
-                width={"12"}
-                height={"12"}
+                width={["10", "12"]}
+                height={["10", "12"]}
                 rounded={"full"}
                 position={'fixed'}
                 zIndex={'overlay'}
@@ -49,7 +52,7 @@ const Header = () => {
                 placement='left'
                 onClose={onClose}
                 isOpen={isOpen}>
-                <DrawerOverlay backdropFilter={'blur(5px'} />
+                <DrawerOverlay backdropFilter={'blur(5px)'} />
                 <DrawerContent >
                     <DrawerHeader borderBottomWidth={"1px"} children={'PROJECT-K'} />
                     <DrawerBody>
@@ -58,49 +61,53 @@ const Header = () => {
                             <LinkButton onClose={onClose} url={'/products'} title='Products' />
                             <LinkButton onClose={onClose} url={'/cart'} title='Cart' />
                             <LinkButton onClose={onClose} url={'/orders'} title='Orders' />
-                            <HStack 
-                            justifyContent={'space-evently'}
-                            position={'absolute'}
-                            bottom={'2rem'}
-                            right={'2rem'}
-                            width={"80%"}
+                            <HStack
+                                justifyContent={'space-evently'}
+                                position={'absolute'}
+                                bottom={'2rem'}
+                                right={'2rem'}
+                                width={"80%"}
                             >
                                 {
-                                    isAuthenticated?(
+                                    isAuthenticated ? (
                                         <>
-                                        <VStack>
-                                            <HStack>
-                                            <Link to={'/profile'} onClick={onClose}>
-                                    <Button colorScheme='yellow' variant={'ghost'}>
-                                        <RiProfileLine />
-                                        Profile</Button>
-                                    </Link>
-                                    <Button colorScheme='yellow' variant={'ghost'}>
-                                        <RiLogoutBoxLine />
-                                        Logout</Button>
-                                            </HStack>
-                                            {
-                                                user && user.role==='admin'?
-                                                <Link to={'/profile'} onClick={onClose}>
-                                    <Button colorScheme='purple' width={'full'} variant={'ghost'}>
-                                        <RiDashboardFill />
-                                        Dashboard</Button>
-                                    </Link>:""
-                                            }
-                                        </VStack>
+                                            <VStack>
+                                                <HStack>
+                                                    <Link to={'/profile'} onClick={onClose}>
+                                                        <Button colorScheme='yellow' variant={'ghost'}>
+                                                            <RiProfileLine />
+                                                            Profile</Button>
+                                                    </Link>
+                                                    <Button 
+                                                    colorScheme='yellow'
+                                                     variant={'ghost'}
+                                                     onClick={logoutHandler}
+                                                     >
+                                                        <RiLogoutBoxLine />
+                                                        Logout</Button>
+                                                </HStack>
+                                                {
+                                                    user && user.role === 'admin' ?
+                                                        <Link to={'/profile'} onClick={onClose}>
+                                                            <Button colorScheme='purple' width={'full'} variant={'ghost'}>
+                                                                <RiDashboardFill />
+                                                                Dashboard</Button>
+                                                        </Link> : ""
+                                                }
+                                            </VStack>
                                         </>
-                                    ):(<>
-                                    <Link to={'/login'} onClick={onClose}>
-                                    <Button colorScheme='yellow'>
-                                        <RiLoginBoxLine />
-                                        Login</Button>
-                                    </Link>
-                                    <p>OR</p>
-                                    <Link to={'register'} onClick={onClose}>
-                                    <Button colorScheme='yellow'>
-                                        <MdAndroid />
-                                        Sign Up</Button>
-                                    </Link>
+                                    ) : (<>
+                                        <Link to={'/login'} onClick={onClose}>
+                                            <Button colorScheme='yellow'>
+                                                <RiLoginBoxLine />
+                                                Login</Button>
+                                        </Link>
+                                        <p>OR</p>
+                                        <Link to={'register'} onClick={onClose}>
+                                            <Button colorScheme='yellow'>
+                                                <MdAndroid />
+                                                Sign Up</Button>
+                                        </Link>
                                     </>)
                                 }
                             </HStack>

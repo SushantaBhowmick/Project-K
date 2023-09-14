@@ -1,8 +1,12 @@
 import React from 'react'
+import MetaData from '../Layout/MetaData'
 
 const Product = () => {
   return (
-    <div>Product</div>
+    <>
+    <MetaData title={`Products`}/>
+
+    </>
   )
 }
 
