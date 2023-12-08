@@ -1,6 +1,7 @@
 import React from 'react'
 import { ColorModeSwitcher } from '../../ColorModeSwitcher'
 import { Button } from '@chakra-ui/button'
+import { Box,Heading } from '@chakra-ui/react'
 import {
     RiDashboardFill,
     RiLoginBoxLine,
@@ -16,7 +17,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { LogoutUser } from '../../redux/actions/userAction';
 
-const Header = ({ isAuthenticated = false, user }) => {
+const Header = ({ isAuthenticated = false, user ,weatherDetails}) => {
 
     const LinkButton = ({ url = "/", title = "Home", onClose }) => (
         <Link onClick={onClose} to={url}>
@@ -61,6 +62,7 @@ const Header = ({ isAuthenticated = false, user }) => {
                             <LinkButton onClose={onClose} url={'/products'} title='Products' />
                             <LinkButton onClose={onClose} url={'/cart'} title='Cart' />
                             <LinkButton onClose={onClose} url={'/orders'} title='Orders' />
+                           
                             <HStack
                                 justifyContent={'space-evently'}
                                 position={'absolute'}

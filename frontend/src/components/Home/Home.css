@@ -30,6 +30,7 @@
     font: 500 1vmax "Roboto";
     text-align: center;
     animation: buttonAni 1s infinite ease-in-out alternate;
+    color: black;
 }
 
 @keyframes buttonAni {
@@ -56,4 +57,20 @@
         background-size: 100vmin 100vmin;
         height: 100vmin;
     }
+}
+
+/* //cart */
+.container{
+    min-height: 100vh;
+}
+.con{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 1%;
+   /* display: flex;
+   align-items: center;
+   justify-content: center; */
+    
 }

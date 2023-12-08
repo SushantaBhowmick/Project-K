@@ -3,17 +3,21 @@ import {Button,Input } from '@chakra-ui/react'
 import React, {useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../../redux/actions/userAction'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 
-const Login = () => {
+const Login = ({isAuthenticated}) => {
     const [email,setEmail] =useState('')
     const [password,setPassword] =useState('')
 
     const dispatch = useDispatch();
 
-    const submitHandler = (e)=>{
+    const submitHandler = async(e)=>{
         e.preventDefault();
         dispatch(loginUser(email,password))
+       
     }
+
    
   return (
     <Container h={'90vh'}>
